@@ -1,0 +1,31 @@
+name: 'Check Dependencies against OSS Index'
+description: 'Read list of depencies and check them against the OSS Index'
+inputs:
+  filename:
+    description: 'Dependency filename'
+    required: false
+    default: './dependencies.txt'
+  slacktoken:
+    description: 'Slack Bot User OAuth Access Token'
+    required: false
+    default: ''
+  ossusername:
+    description: 'OSS Index username'
+    required: false
+    default: ''
+  osstoken:
+    description: 'OSS Index access token'
+    required: false
+    default: ''
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/streeva/check-ossindex:v1.1.0'
+  args:
+    - '-i'
+    - ${{ inputs.filename }}
+    - '-s' 
+    - ${{ inputs.slacktoken }}
+    - '-u'
+    - ${{ inputs.ossusername }}
+    - '-t'
+    - ${{ inputs.osstoken }}
